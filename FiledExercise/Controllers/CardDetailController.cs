@@ -34,37 +34,33 @@ namespace FiledExercise.Controllers
             try
             {
                 //if validation ok process card payment
-                if (ModelState.IsValid)
+                if (_paymentGatwayRepo.CardVerification(cardDetail))
                 {
                     var paymentStatus = new PaymentState();
                     paymentStatus.StateEnum = PaymentStateEnum.Pending;
                     _context.PaymentState.Add(paymentStatus);
                     await _context.SaveChangesAsync();
 
-                    var processPayment = new PaymentGatwayRepo(_context);
+                    var isProcessed = await _paymentGatwayRepo.ProcessTransaction(cardDetail, paymentStatus);
 
-                    if (paymentStatus != null)
+                    if (isProcessed)
                     {
-                        var isProcessed = await _paymentGatwayRepo.ProcessTransaction(cardDetail, paymentStatus);
-
+                        return Ok("Payment is processed");
                     }
 
-                    return Ok("Payment is processed");
                 }
-                else
+
+                return BadRequest(new
                 {
-                    return BadRequest(new
-                    {
-                        message = "The request is invalid"
-                    });
-                }
+                    message = "The request is invalid"
+                });
 
             }
             catch (Exception e)
             {
                 return StatusCode(500, new
                 {
-                    error= e.Message,
+                    error = e.Message,
                     message = "Lost connection to payment platform, Please try back later"
                 });
             }

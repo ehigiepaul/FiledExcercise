@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FiledExercise.Controllers;
 using FiledExercise.Data;
 using FiledExercise.Models;
 using FiledExercise.Repository;
@@ -11,7 +12,7 @@ using NUnit.Framework;
 namespace FiledExercise_Test
 {
     [TestFixture]
-    public class CardValidationTest
+    public class CardDetailControllerTest
     {
         [SetUp]
         public void Setup()
@@ -20,6 +21,7 @@ namespace FiledExercise_Test
             var dbContext = new DbContextOptionsBuilder<FiledExerciseContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=FiledExerciseContext;Trusted_Connection=True;MultipleActiveResultSets=true");
             _context = new FiledExerciseContext(dbContext.Options);
             _paymentGatwayRepo = new PaymentGatwayRepo(_context);
+            _controller = new CardDetailController(_context, _paymentGatwayRepo);
         }
 
         [TearDown]
@@ -168,42 +170,11 @@ namespace FiledExercise_Test
 
         };
 
-        [Test]
-        public void CheapTransaction_Below20_ReturnBool(CardDetail cardDetail) //[ValueSource("CCTestData")]
-        {
+        private CardDetailController _controller;
 
-            var cheap = _paymentGatwayRepo.CheapTransaction(cardDetail).Result;
-            Assert.LessOrEqual(cardDetail.Amount, 20, "Transaction is greater than 20");
-            Assert.IsTrue(cheap, "Transaction failed");
-        }
 
         [Test]
-        public void ExpensiveTransaction_Above20_ReturnBool(CardDetail cardDetail)//[ValueSource("CCTestData")]
-        {
-            var cheap = _paymentGatwayRepo.ExpensiveTransaction(cardDetail).Result;
-            Assert.IsTrue(cardDetail.Amount <= 500 && cardDetail.Amount >= 21, "Transaction is less or greater than 21 and 500");
-            Assert.IsTrue(cheap, "Transaction failed");
-        }
-
-        [Test]
-        public void PremiumTransaction_Above20_ReturnBool( CardDetail cardDetail)//[ValueSource("CCTestData")]
-        {
-
-            var cheap = _paymentGatwayRepo.PremiumTransaction(cardDetail).Result;
-            Assert.Greater(cardDetail.Amount, 500, "Transaction is less than 500");
-            Assert.IsTrue(cheap, "Transaction failed");
-        }
-
-        [Test]
-        public void CardVerification_When_Ok_ReturnBool( CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
-        {
-
-            var isCardVerified = _paymentGatwayRepo.CardVerification(cardDetail);
-            Assert.IsTrue(isCardVerified, "Invalid card");
-        }
-
-        [Test]
-        public void ProcessPaymentWhenInit(CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
+        public void ProcessPaymentController_On_CardTransaction(CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
         {
 
             var paymentStatus = new PaymentState();
