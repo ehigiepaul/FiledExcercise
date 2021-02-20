@@ -1,0 +1,34 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DTO/@EntryIndexedValue">DTO</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\ehigi\AppData\Local\Temp\JetBrains\Rider\vAny\CoverageData\_FiledExercise.-385569783\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0e38106a_002D2b27_002D4771_002Da495_002Dace9ecf1e048/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PremiumTransaction_Above20_ReturnBool" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.PremiumTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.ProcessPaymentWhenInit&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1730a925_002D3e58_002D4b9e_002Da9ba_002Dc8fad361b6c9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CardValidationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=44ef0b19_002D527a_002D44ae_002Db435_002D2d67ae29a466/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="3" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=45561e7d_002D4d12_002D456b_002Db6dd_002De55d0c1fd170/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PremiumTransaction_Above20_ReturnBool #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.PremiumTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.ExpensiveTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6f883d85_002Dde58_002D4186_002Dbacb_002D67d5a85b9cc6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PremiumTransaction_Above20_ReturnBool #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.PremiumTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dfeda643_002D3db7_002D4fbf_002Da7bf_002Dbd4b7c5f8560/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PremiumTransaction_Above20_ReturnBool #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.PremiumTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.ProcessPaymentWhenInit&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
