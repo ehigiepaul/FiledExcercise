@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FiledExercise.Controllers;
 using FiledExercise.Data;
 using FiledExercise.Models;
 using FiledExercise.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
@@ -14,26 +18,23 @@ namespace FiledExercise_Test
     [TestFixture]
     public class CardDetailControllerTest
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-
             var dbContext = new DbContextOptionsBuilder<FiledExerciseContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=FiledExerciseContext;Trusted_Connection=True;MultipleActiveResultSets=true");
             _context = new FiledExerciseContext(dbContext.Options);
-            _paymentGatwayRepo = new PaymentGatwayRepo(_context);
-            _controller = new CardDetailController(_context, _paymentGatwayRepo);
+            _paymentProcessController = new ProcessPaymentController(_context);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void Teardown()
         {
-            _card = null;
-            _paymentGatwayRepo = null;
             _context = null;
+            _paymentProcessController = null;
         }
         private FiledExerciseContext _context;
-        private PaymentGatwayRepo _paymentGatwayRepo;
-        private CardDetail _card;
+        private ProcessPaymentController _paymentProcessController;
+
 
         private static IEnumerable<CardDetail> CCTestData = new List<CardDetail>()
         {
@@ -153,7 +154,8 @@ namespace FiledExercise_Test
                 ExpirationDate = new DateTime(21, 12, 01),
                 SecurityCode = "2335"
 
-            },   new CardDetail()
+            },
+            new CardDetail()
             {
                 Amount = -30,
                 CardHolder = "Paul Ehigie Paul",
@@ -165,34 +167,15 @@ namespace FiledExercise_Test
 
         };
 
-        private static IEnumerable<CardDetail> AllTest = new List<CardDetail>()
-        {
-
-        };
-
-        private CardDetailController _controller;
-
 
         [Test]
-        public void ProcessPaymentController_On_CardTransaction(CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
+        public void ProcessPaymentController_On_CardTransaction( CardDetail cardDetail) //[ValueSource("CCVerificationTestData")]
         {
 
-            var paymentStatus = new PaymentState();
-            paymentStatus.StateEnum = PaymentStateEnum.Pending;
-            _context.SaveChangesAsync();
-            var process = _paymentGatwayRepo.ProcessTransaction(cardDetail, paymentStatus).Result;
+            var responseResult = _paymentProcessController.ProcessPayment(cardDetail).Result;
 
-            if (process)
-            {
-                paymentStatus.StateEnum = PaymentStateEnum.Processed;
-            }
-            else
-            {
-                paymentStatus.StateEnum = PaymentStateEnum.Failed;
-            }
 
-            _context.SaveChangesAsync();
-            Assert.IsTrue(process, "Transaction Failed");
+            Assert.IsTrue(responseResult.Value, "Transaction failed");
 
         }
     }

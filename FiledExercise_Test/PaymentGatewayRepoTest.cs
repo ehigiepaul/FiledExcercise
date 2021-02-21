@@ -11,27 +11,22 @@ using NUnit.Framework;
 namespace FiledExercise_Test
 {
     [TestFixture]
-    public class CardValidationTest
+    public class PaymentGatewayRepoTest : PaymentGatwayRepo
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-
             var dbContext = new DbContextOptionsBuilder<FiledExerciseContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=FiledExerciseContext;Trusted_Connection=True;MultipleActiveResultSets=true");
             _context = new FiledExerciseContext(dbContext.Options);
-            _paymentGatwayRepo = new PaymentGatwayRepo(_context);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void Teardown()
         {
-            _card = null;
-            _paymentGatwayRepo = null;
             _context = null;
         }
         private FiledExerciseContext _context;
-        private PaymentGatwayRepo _paymentGatwayRepo;
-        private CardDetail _card;
+
 
         private static IEnumerable<CardDetail> CCTestData = new List<CardDetail>()
         {
@@ -151,7 +146,8 @@ namespace FiledExercise_Test
                 ExpirationDate = new DateTime(21, 12, 01),
                 SecurityCode = "2335"
 
-            },   new CardDetail()
+            },
+            new CardDetail()
             {
                 Amount = -30,
                 CardHolder = "Paul Ehigie Paul",
@@ -163,53 +159,49 @@ namespace FiledExercise_Test
 
         };
 
-        private static IEnumerable<CardDetail> AllTest = new List<CardDetail>()
-        {
-
-        };
 
         [Test]
         public void CheapTransaction_Below20_ReturnBool(CardDetail cardDetail) //[ValueSource("CCTestData")]
         {
 
-            var cheap = _paymentGatwayRepo.CheapTransaction(cardDetail).Result;
+            var cheap = CheapTransaction(cardDetail).Result;
             Assert.LessOrEqual(cardDetail.Amount, 20, "Transaction is greater than 20");
             Assert.IsTrue(cheap, "Transaction failed");
         }
 
         [Test]
-        public void ExpensiveTransaction_Above20_ReturnBool(CardDetail cardDetail)//[ValueSource("CCTestData")]
+        public void ExpensiveTransaction_Above21AndBelow500_ReturnBool(CardDetail cardDetail) //[ValueSource("CCTestData")]
         {
-            var cheap = _paymentGatwayRepo.ExpensiveTransaction(cardDetail).Result;
+            var cheap = ExpensiveTransaction(cardDetail).Result;
             Assert.IsTrue(cardDetail.Amount <= 500 && cardDetail.Amount >= 21, "Transaction is less or greater than 21 and 500");
             Assert.IsTrue(cheap, "Transaction failed");
         }
 
         [Test]
-        public void PremiumTransaction_Above20_ReturnBool( CardDetail cardDetail)//[ValueSource("CCTestData")]
+        public void PremiumTransaction_Above500_ReturnBool(CardDetail cardDetail) //[ValueSource("CCTestData")]
         {
 
-            var cheap = _paymentGatwayRepo.PremiumTransaction(cardDetail).Result;
+            var cheap = PremiumTransaction(cardDetail).Result;
             Assert.Greater(cardDetail.Amount, 500, "Transaction is less than 500");
             Assert.IsTrue(cheap, "Transaction failed");
         }
 
         [Test]
-        public void CardVerification_When_Ok_ReturnBool( CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
+        public void CardVerification_When_Ok_ReturnBool(CardDetail cardDetail) //[ValueSource("CCVerificationTestData")]
         {
 
-            var isCardVerified = _paymentGatwayRepo.CardVerification(cardDetail);
+            var isCardVerified = CardVerification(cardDetail);
             Assert.IsTrue(isCardVerified, "Invalid card");
         }
 
         [Test]
-        public void ProcessPaymentWhenInit(CardDetail cardDetail)//[ValueSource("CCVerificationTestData")]
+        public void ProcessPaymentWhenInit(CardDetail cardDetail) //[ValueSource("CCVerificationTestData")]
         {
 
             var paymentStatus = new PaymentState();
             paymentStatus.StateEnum = PaymentStateEnum.Pending;
             _context.SaveChangesAsync();
-            var process = _paymentGatwayRepo.ProcessTransaction(cardDetail, paymentStatus).Result;
+            var process = new PaymentGatwayRepo(_context).ProcessTransaction(cardDetail, paymentStatus).Result;
 
             if (process)
             {

@@ -2,24 +2,30 @@
 using System.Threading.Tasks;
 using FiledExercise.Data;
 using FiledExercise.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FiledExercise.Repository
 {
     public class PaymentGatwayRepo
     {
+        private  FiledExerciseContext _context;
         private PaymentState _paymentStatus;
-        private FiledExerciseContext _context;
         private int premiumTried;
+
 
         public PaymentGatwayRepo(FiledExerciseContext context)
         {
             _context = context;
         }
+        protected PaymentGatwayRepo():this(null)
+        {
+
+        }
         /**
          * use to handle transactions below $20
          * <param name="cardDetail"></param>
          */
-        public async Task<bool> CheapTransaction(CardDetail cardDetail)
+        protected async Task<bool> CheapTransaction(CardDetail cardDetail)
         {
             try
             {
@@ -51,7 +57,7 @@ namespace FiledExercise.Repository
          * use to handle transactions between $21 - $500
          * <param name="cardDetail"></param>
          */
-        public async Task<bool> ExpensiveTransaction(CardDetail cardDetail)
+        protected async Task<bool> ExpensiveTransaction(CardDetail cardDetail)
         {
             try
             {
@@ -79,14 +85,14 @@ namespace FiledExercise.Repository
          * use to handle transactions above $500
          * <param name="cardDetail"></param>
          */
-        public async Task<bool> PremiumTransaction(CardDetail cardDetail)
+        protected async Task<bool> PremiumTransaction(CardDetail cardDetail)
         {
             try
             {
                 switch (premiumTried)
                 {
                     case 3:
-                        premiumTried = 3;
+
                         throw new Exception();
                     default:
                     {
@@ -118,13 +124,12 @@ namespace FiledExercise.Repository
                     premiumTried++;
                     PremiumTransaction(cardDetail);
                 }
-
+                premiumTried = 0;
                 return false;
             }
 
 
         }
-
 
         public async Task<bool> ProcessTransaction(CardDetail cardDetail, PaymentState paymentStatus)
         {
@@ -175,7 +180,7 @@ namespace FiledExercise.Repository
 
         }
 
-        public bool CardVerification(CardDetail cardDetail)
+        protected bool CardVerification(CardDetail cardDetail)
         {
             try
             {

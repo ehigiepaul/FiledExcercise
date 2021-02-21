@@ -13,42 +13,41 @@ namespace FiledExercise.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CardDetailController : ControllerBase
+    public class ProcessPaymentController : ControllerBase
     {
         private readonly FiledExerciseContext _context;
-        private readonly PaymentGatwayRepo _paymentGatwayRepo;
+        private PaymentGatwayRepo _paymentGatewayRepo;
 
-        public CardDetailController(FiledExerciseContext context, PaymentGatwayRepo paymentGatwayRepo)
+        public ProcessPaymentController(FiledExerciseContext context)
         {
             _context = context;
-            _paymentGatwayRepo = paymentGatwayRepo;
-
+            _paymentGatewayRepo = new PaymentGatwayRepo(_context);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PaymentState>> ProcessPayment(CardDetail cardDetail)
+        public async Task<ActionResult<bool>> ProcessPayment(CardDetail cardDetail)
         {
             try
             {
-                //if validation ok process card payment
-                if (_paymentGatwayRepo.CardVerification(cardDetail))
+                if (cardDetail == null)
                 {
+                    throw new Exception();
+                }
+
                     var paymentStatus = new PaymentState();
                     paymentStatus.StateEnum = PaymentStateEnum.Pending;
                     _context.PaymentState.Add(paymentStatus);
                     await _context.SaveChangesAsync();
 
-                    var isProcessed = await _paymentGatwayRepo.ProcessTransaction(cardDetail, paymentStatus);
+                    var isProcessed = await _paymentGatewayRepo.ProcessTransaction(cardDetail, paymentStatus);
 
                     if (isProcessed)
                     {
                         return Ok("Payment is processed");
                     }
-
-                }
 
                 return BadRequest(new
                 {

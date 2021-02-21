@@ -12,6 +12,7 @@
     &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardDetailControllerTest.ProcessPaymentController_On_CardTransaction&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardDetailControllerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.PaymentGatewayRepoTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=44ef0b19_002D527a_002D44ae_002Db435_002D2d67ae29a466/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="3" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -21,6 +22,7 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.PremiumTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.ExpensiveTransaction_Above20_ReturnBool&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::04ECD09F-12BA-4EF0-8E7D-34A125B2CBBC::net5.0::FiledExercise_Test.CardValidationTest.CheapTransaction_Below20_ReturnBool&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6f883d85_002Dde58_002D4186_002Dbacb_002D67d5a85b9cc6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PremiumTransaction_Above20_ReturnBool #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
